@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.10.4 on linux)" generated="20220611 17:12:28.151" rpa="false" schemaversion="3">
+<suite id="s1" name="Robot first homework" source="/home/andrey/PycharmProjects/Robot_first_homework">
+<suite id="s1-s1" name="Test List Processing" source="/home/andrey/PycharmProjects/Robot_first_homework/test_list_processing.robot">
+<test id="s1-s1-t1" name="Find min and max in list" line="7">
+<kw name="Evaluate" library="BuiltIn">
+<var>${mylist_min}</var>
+<arg>min(@{MYLIST})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220611 17:12:28.241" level="INFO">${mylist_min} = -1</msg>
+<status status="PASS" starttime="20220611 17:12:28.241" endtime="20220611 17:12:28.241"/>
+</kw>
+<kw name="Evaluate" library="BuiltIn">
+<var>${mylist_max}</var>
+<arg>max(@{MYLIST})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220611 17:12:28.244" level="INFO">${mylist_max} = 10</msg>
+<status status="PASS" starttime="20220611 17:12:28.242" endtime="20220611 17:12:28.244"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>Max value = ${mylist_max} Min value = ${mylist_min}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220611 17:12:28.245" level="INFO">Max value = 10 Min value = -1</msg>
+<status status="PASS" starttime="20220611 17:12:28.244" endtime="20220611 17:12:28.245"/>
+</kw>
+<doc>Find min and max values in MYLIST</doc>
+<tag>max</tag>
+<tag>min</tag>
+<status status="PASS" starttime="20220611 17:12:28.239" endtime="20220611 17:12:28.245"/>
+</test>
+<test id="s1-s1-t2" name="Find unique values in list" line="14">
+<kw name="Evaluate" library="BuiltIn">
+<var>${mylist_unique}</var>
+<arg>list(set(@{MYLIST}))</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220611 17:12:28.248" level="INFO">${mylist_unique} = [0, 1, 2, 3, 5, 10, -1]</msg>
+<status status="PASS" starttime="20220611 17:12:28.247" endtime="20220611 17:12:28.248"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>uniqe values in list = ${mylist_unique}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220611 17:12:28.252" level="INFO">uniqe values in list = [0, 1, 2, 3, 5, 10, -1]</msg>
+<status status="PASS" starttime="20220611 17:12:28.248" endtime="20220611 17:12:28.252"/>
+</kw>
+<doc>Find unique values in MYLIST</doc>
+<tag>unique</tag>
+<status status="PASS" starttime="20220611 17:12:28.246" endtime="20220611 17:12:28.253"/>
+</test>
+<test id="s1-s1-t3" name="Find sum of all elements in list" line="20">
+<kw name="Evaluate" library="BuiltIn">
+<var>${mylist_sum}</var>
+<arg>sum(@{MYLIST})</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220611 17:12:28.256" level="INFO">${mylist_sum} = 21</msg>
+<status status="PASS" starttime="20220611 17:12:28.255" endtime="20220611 17:12:28.256"/>
+</kw>
+<kw name="Log" library="BuiltIn">
+<arg>sum of all elements in list = ${mylist_sum}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20220611 17:12:28.259" level="INFO">sum of all elements in list = 21</msg>
+<status status="PASS" starttime="20220611 17:12:28.258" endtime="20220611 17:12:28.259"/>
+</kw>
+<doc>Sum of all elements in MYLIST</doc>
+<tag>sum</tag>
+<status status="PASS" starttime="20220611 17:12:28.253" endtime="20220611 17:12:28.259"/>
+</test>
+<doc>First task
+
+Using the following list: [1, 2, 3, 5, 1, 0, -1, 10] test finding min, max, unique and sum</doc>
+<status status="PASS" starttime="20220611 17:12:28.228" endtime="20220611 17:12:28.261"/>
+</suite>
+<status status="PASS" starttime="20220611 17:12:28.154" endtime="20220611 17:12:28.263"/>
+</suite>
+<statistics>
+<total>
+<stat pass="3" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="1" fail="0" skip="0">max</stat>
+<stat pass="1" fail="0" skip="0">min</stat>
+<stat pass="1" fail="0" skip="0">sum</stat>
+<stat pass="1" fail="0" skip="0">unique</stat>
+</tag>
+<suite>
+<stat pass="3" fail="0" skip="0" id="s1" name="Robot first homework">Robot first homework</stat>
+<stat pass="3" fail="0" skip="0" id="s1-s1" name="Test List Processing">Robot first homework.Test List Processing</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
