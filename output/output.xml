@@ -1,89 +1,342 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 5.0.1 (Python 3.10.4 on linux)" generated="20220611 17:12:28.151" rpa="false" schemaversion="3">
+<robot generator="Robot 5.0.1 (Python 3.10.4 on linux)" generated="20220613 18:51:24.788" rpa="false" schemaversion="3">
 <suite id="s1" name="Robot first homework" source="/home/andrey/PycharmProjects/Robot_first_homework">
-<suite id="s1-s1" name="Test List Processing" source="/home/andrey/PycharmProjects/Robot_first_homework/test_list_processing.robot">
-<test id="s1-s1-t1" name="Find min and max in list" line="7">
+<suite id="s1-s1" name="Test Celsius To Fahrenheit" source="/home/andrey/PycharmProjects/Robot_first_homework/test_celsius_to_fahrenheit.robot">
+<test id="s1-s1-t1" name="Test formula with test data" line="7">
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{test_data}</var>
+<arg>0=${32}</arg>
+<arg>350=${662}</arg>
+<arg>-32=${-25.6}</arg>
+<arg>100=${212}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 18:51:24.885" level="INFO">&amp;{test_data} = { 0=32 | 350=662 | -32=-25.6 | 100=212 }</msg>
+<status status="PASS" starttime="20220613 18:51:24.880" endtime="20220613 18:51:24.885"/>
+</kw>
+<kw name="Get Dictionary Keys" library="Col">
+<var>@{temp_in_cels}</var>
+<arg>${test_data}</arg>
+<doc>Returns keys of the given ``dictionary`` as a list.</doc>
+<msg timestamp="20220613 18:51:24.886" level="INFO">@{temp_in_cels} = [ -32 | 0 | 100 | 350 ]</msg>
+<status status="PASS" starttime="20220613 18:51:24.885" endtime="20220613 18:51:24.886"/>
+</kw>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{formula_res}</var>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220613 18:51:24.886" level="INFO">&amp;{formula_res} = { }</msg>
+<status status="PASS" starttime="20220613 18:51:24.886" endtime="20220613 18:51:24.886"/>
+</kw>
+<for flavor="IN">
+<var>${key}</var>
+<value>@{temp_in_cels}</value>
+<iter>
+<var name="${key}">-32</var>
+<kw name="Celsius To Fahrenheit">
+<var>${value}</var>
+<arg>${key}</arg>
 <kw name="Evaluate" library="BuiltIn">
-<var>${mylist_min}</var>
-<arg>min(@{MYLIST})</arg>
+<var>${temperature_fahrenheit}</var>
+<arg>9 / 5 * ${temperature_celsius} + 32</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20220611 17:12:28.241" level="INFO">${mylist_min} = -1</msg>
-<status status="PASS" starttime="20220611 17:12:28.241" endtime="20220611 17:12:28.241"/>
+<msg timestamp="20220613 18:51:24.896" level="INFO">${temperature_fahrenheit} = -25.6</msg>
+<status status="PASS" starttime="20220613 18:51:24.890" endtime="20220613 18:51:24.896"/>
 </kw>
+<msg timestamp="20220613 18:51:24.897" level="INFO">${value} = -25.6</msg>
+<status status="PASS" starttime="20220613 18:51:24.889" endtime="20220613 18:51:24.897"/>
+</kw>
+<kw name="Set To Dictionary" library="Col">
+<arg>${formula_res}</arg>
+<arg>${key}</arg>
+<arg>${value}</arg>
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 18:51:24.897" endtime="20220613 18:51:24.898"/>
+</kw>
+<status status="PASS" starttime="20220613 18:51:24.889" endtime="20220613 18:51:24.898"/>
+</iter>
+<iter>
+<var name="${key}">0</var>
+<kw name="Celsius To Fahrenheit">
+<var>${value}</var>
+<arg>${key}</arg>
 <kw name="Evaluate" library="BuiltIn">
-<var>${mylist_max}</var>
-<arg>max(@{MYLIST})</arg>
+<var>${temperature_fahrenheit}</var>
+<arg>9 / 5 * ${temperature_celsius} + 32</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20220611 17:12:28.244" level="INFO">${mylist_max} = 10</msg>
-<status status="PASS" starttime="20220611 17:12:28.242" endtime="20220611 17:12:28.244"/>
+<msg timestamp="20220613 18:51:24.899" level="INFO">${temperature_fahrenheit} = 32.0</msg>
+<status status="PASS" starttime="20220613 18:51:24.899" endtime="20220613 18:51:24.899"/>
 </kw>
-<kw name="Log" library="BuiltIn">
-<arg>Max value = ${mylist_max} Min value = ${mylist_min}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20220611 17:12:28.245" level="INFO">Max value = 10 Min value = -1</msg>
-<status status="PASS" starttime="20220611 17:12:28.244" endtime="20220611 17:12:28.245"/>
+<msg timestamp="20220613 18:51:24.908" level="INFO">${value} = 32.0</msg>
+<status status="PASS" starttime="20220613 18:51:24.899" endtime="20220613 18:51:24.908"/>
 </kw>
-<doc>Find min and max values in MYLIST</doc>
+<kw name="Set To Dictionary" library="Col">
+<arg>${formula_res}</arg>
+<arg>${key}</arg>
+<arg>${value}</arg>
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 18:51:24.908" endtime="20220613 18:51:24.909"/>
+</kw>
+<status status="PASS" starttime="20220613 18:51:24.898" endtime="20220613 18:51:24.909"/>
+</iter>
+<iter>
+<var name="${key}">100</var>
+<kw name="Celsius To Fahrenheit">
+<var>${value}</var>
+<arg>${key}</arg>
+<kw name="Evaluate" library="BuiltIn">
+<var>${temperature_fahrenheit}</var>
+<arg>9 / 5 * ${temperature_celsius} + 32</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220613 18:51:24.910" level="INFO">${temperature_fahrenheit} = 212.0</msg>
+<status status="PASS" starttime="20220613 18:51:24.909" endtime="20220613 18:51:24.910"/>
+</kw>
+<msg timestamp="20220613 18:51:24.910" level="INFO">${value} = 212.0</msg>
+<status status="PASS" starttime="20220613 18:51:24.909" endtime="20220613 18:51:24.910"/>
+</kw>
+<kw name="Set To Dictionary" library="Col">
+<arg>${formula_res}</arg>
+<arg>${key}</arg>
+<arg>${value}</arg>
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 18:51:24.910" endtime="20220613 18:51:24.910"/>
+</kw>
+<status status="PASS" starttime="20220613 18:51:24.909" endtime="20220613 18:51:24.910"/>
+</iter>
+<iter>
+<var name="${key}">350</var>
+<kw name="Celsius To Fahrenheit">
+<var>${value}</var>
+<arg>${key}</arg>
+<kw name="Evaluate" library="BuiltIn">
+<var>${temperature_fahrenheit}</var>
+<arg>9 / 5 * ${temperature_celsius} + 32</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220613 18:51:24.911" level="INFO">${temperature_fahrenheit} = 662.0</msg>
+<status status="PASS" starttime="20220613 18:51:24.911" endtime="20220613 18:51:24.911"/>
+</kw>
+<msg timestamp="20220613 18:51:24.912" level="INFO">${value} = 662.0</msg>
+<status status="PASS" starttime="20220613 18:51:24.911" endtime="20220613 18:51:24.912"/>
+</kw>
+<kw name="Set To Dictionary" library="Col">
+<arg>${formula_res}</arg>
+<arg>${key}</arg>
+<arg>${value}</arg>
+<doc>Adds the given ``key_value_pairs`` and ``items`` to the ``dictionary``.</doc>
+<status status="PASS" starttime="20220613 18:51:24.912" endtime="20220613 18:51:24.912"/>
+</kw>
+<status status="PASS" starttime="20220613 18:51:24.911" endtime="20220613 18:51:24.912"/>
+</iter>
+<status status="PASS" starttime="20220613 18:51:24.886" endtime="20220613 18:51:24.912"/>
+</for>
+<kw name="Dictionaries Should Be Equal" library="Col">
+<arg>${formula_res}</arg>
+<arg>${test_data}</arg>
+<doc>Fails if the given dictionaries are not equal.</doc>
+<status status="PASS" starttime="20220613 18:51:24.912" endtime="20220613 18:51:24.913"/>
+</kw>
+<doc>Check the following formula tF = 9/5 * tC + 32</doc>
+<tag>Celsius Fahrenheit</tag>
+<status status="PASS" starttime="20220613 18:51:24.880" endtime="20220613 18:51:24.913"/>
+</test>
+<doc>Second task
+
+Check the following formula tF = 9/5 * tC + 32</doc>
+<status status="PASS" starttime="20220613 18:51:24.869" endtime="20220613 18:51:24.913"/>
+</suite>
+<suite id="s1-s2" name="Test List Processing" source="/home/andrey/PycharmProjects/Robot_first_homework/test_list_processing.robot">
+<test id="s1-s2-t1" name="Find unique values in list" line="11">
+<kw name="Remove Duplicates" library="Col">
+<var>${mylist_unique}</var>
+<arg>${MYLIST}</arg>
+<doc>Returns a list without duplicates based on the given ``list``.</doc>
+<msg timestamp="20220613 18:51:24.925" level="INFO">1 duplicate removed.</msg>
+<msg timestamp="20220613 18:51:24.925" level="INFO">${mylist_unique} = [1, 2, 3, 5, 0, -1, 10]</msg>
+<status status="PASS" starttime="20220613 18:51:24.924" endtime="20220613 18:51:24.925"/>
+</kw>
+<kw name="Lists Should Be Equal" library="Col">
+<arg>${mylist_unique}</arg>
+<arg>${MYLIST_UNIQUE_CHECK}</arg>
+<doc>Fails if given lists are unequal.</doc>
+<status status="PASS" starttime="20220613 18:51:24.925" endtime="20220613 18:51:24.925"/>
+</kw>
+<doc>Check that unique values in MYLIST are being found correctly</doc>
+<tag>unique</tag>
+<status status="PASS" starttime="20220613 18:51:24.922" endtime="20220613 18:51:24.926"/>
+</test>
+<test id="s1-s2-t2" name="Test min value is -1 and max values is 10" line="17">
+<kw name="Create sorted list">
+<kw name="Set Test Variable" library="BuiltIn">
+<arg>${mylist_sorted}</arg>
+<arg>${MYLIST}</arg>
+<doc>Makes a variable available everywhere within the scope of the current test.</doc>
+<msg timestamp="20220613 18:51:24.930" level="INFO">${mylist_sorted} = [1, 2, 3, 5, 1, 0, -1, 10]</msg>
+<status status="PASS" starttime="20220613 18:51:24.928" endtime="20220613 18:51:24.930"/>
+</kw>
+<kw name="Sort List" library="Col">
+<arg>${mylist_sorted}</arg>
+<doc>Sorts the given list in place.</doc>
+<status status="PASS" starttime="20220613 18:51:24.930" endtime="20220613 18:51:24.930"/>
+</kw>
+<status status="PASS" starttime="20220613 18:51:24.927" endtime="20220613 18:51:24.931"/>
+</kw>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<arg>${mylist_sorted}[0]</arg>
+<arg>-1</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<msg timestamp="20220613 18:51:24.931" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20220613 18:51:24.931" endtime="20220613 18:51:24.931"/>
+</kw>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<arg>${mylist_sorted}[-1]</arg>
+<arg>10</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<msg timestamp="20220613 18:51:24.932" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20220613 18:51:24.931" endtime="20220613 18:51:24.932"/>
+</kw>
+<doc>Check that min and max values in MYLIST are being found correctly</doc>
 <tag>max</tag>
 <tag>min</tag>
-<status status="PASS" starttime="20220611 17:12:28.239" endtime="20220611 17:12:28.245"/>
+<status status="PASS" starttime="20220613 18:51:24.926" endtime="20220613 18:51:24.932"/>
 </test>
-<test id="s1-s1-t2" name="Find unique values in list" line="14">
+<test id="s1-s2-t3" name="Test sum of all elements in MYLIST is 21" line="24">
+<kw name="Set Variable" library="BuiltIn">
+<var>${sum}</var>
+<arg>${0}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220613 18:51:24.934" level="INFO">${sum} = 0</msg>
+<status status="PASS" starttime="20220613 18:51:24.934" endtime="20220613 18:51:24.934"/>
+</kw>
+<for flavor="IN">
+<var>${i}</var>
+<value>@{MYLIST}</value>
+<iter>
+<var name="${i}">-1</var>
 <kw name="Evaluate" library="BuiltIn">
-<var>${mylist_unique}</var>
-<arg>list(set(@{MYLIST}))</arg>
+<var>${sum}</var>
+<arg>${sum} + ${i}</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20220611 17:12:28.248" level="INFO">${mylist_unique} = [0, 1, 2, 3, 5, 10, -1]</msg>
-<status status="PASS" starttime="20220611 17:12:28.247" endtime="20220611 17:12:28.248"/>
+<msg timestamp="20220613 18:51:24.935" level="INFO">${sum} = -1</msg>
+<status status="PASS" starttime="20220613 18:51:24.935" endtime="20220613 18:51:24.935"/>
 </kw>
-<kw name="Log" library="BuiltIn">
-<arg>uniqe values in list = ${mylist_unique}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20220611 17:12:28.252" level="INFO">uniqe values in list = [0, 1, 2, 3, 5, 10, -1]</msg>
-<status status="PASS" starttime="20220611 17:12:28.248" endtime="20220611 17:12:28.252"/>
-</kw>
-<doc>Find unique values in MYLIST</doc>
-<tag>unique</tag>
-<status status="PASS" starttime="20220611 17:12:28.246" endtime="20220611 17:12:28.253"/>
-</test>
-<test id="s1-s1-t3" name="Find sum of all elements in list" line="20">
+<status status="PASS" starttime="20220613 18:51:24.935" endtime="20220613 18:51:24.935"/>
+</iter>
+<iter>
+<var name="${i}">0</var>
 <kw name="Evaluate" library="BuiltIn">
-<var>${mylist_sum}</var>
-<arg>sum(@{MYLIST})</arg>
+<var>${sum}</var>
+<arg>${sum} + ${i}</arg>
 <doc>Evaluates the given expression in Python and returns the result.</doc>
-<msg timestamp="20220611 17:12:28.256" level="INFO">${mylist_sum} = 21</msg>
-<status status="PASS" starttime="20220611 17:12:28.255" endtime="20220611 17:12:28.256"/>
+<msg timestamp="20220613 18:51:24.935" level="INFO">${sum} = -1</msg>
+<status status="PASS" starttime="20220613 18:51:24.935" endtime="20220613 18:51:24.936"/>
 </kw>
-<kw name="Log" library="BuiltIn">
-<arg>sum of all elements in list = ${mylist_sum}</arg>
-<doc>Logs the given message with the given level.</doc>
-<msg timestamp="20220611 17:12:28.259" level="INFO">sum of all elements in list = 21</msg>
-<status status="PASS" starttime="20220611 17:12:28.258" endtime="20220611 17:12:28.259"/>
+<status status="PASS" starttime="20220613 18:51:24.935" endtime="20220613 18:51:24.936"/>
+</iter>
+<iter>
+<var name="${i}">1</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${sum}</var>
+<arg>${sum} + ${i}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220613 18:51:24.936" level="INFO">${sum} = 0</msg>
+<status status="PASS" starttime="20220613 18:51:24.936" endtime="20220613 18:51:24.936"/>
 </kw>
-<doc>Sum of all elements in MYLIST</doc>
+<status status="PASS" starttime="20220613 18:51:24.936" endtime="20220613 18:51:24.936"/>
+</iter>
+<iter>
+<var name="${i}">1</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${sum}</var>
+<arg>${sum} + ${i}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220613 18:51:24.937" level="INFO">${sum} = 1</msg>
+<status status="PASS" starttime="20220613 18:51:24.936" endtime="20220613 18:51:24.937"/>
+</kw>
+<status status="PASS" starttime="20220613 18:51:24.936" endtime="20220613 18:51:24.937"/>
+</iter>
+<iter>
+<var name="${i}">2</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${sum}</var>
+<arg>${sum} + ${i}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220613 18:51:24.937" level="INFO">${sum} = 3</msg>
+<status status="PASS" starttime="20220613 18:51:24.937" endtime="20220613 18:51:24.937"/>
+</kw>
+<status status="PASS" starttime="20220613 18:51:24.937" endtime="20220613 18:51:24.937"/>
+</iter>
+<iter>
+<var name="${i}">3</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${sum}</var>
+<arg>${sum} + ${i}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220613 18:51:24.938" level="INFO">${sum} = 6</msg>
+<status status="PASS" starttime="20220613 18:51:24.937" endtime="20220613 18:51:24.938"/>
+</kw>
+<status status="PASS" starttime="20220613 18:51:24.937" endtime="20220613 18:51:24.938"/>
+</iter>
+<iter>
+<var name="${i}">5</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${sum}</var>
+<arg>${sum} + ${i}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220613 18:51:24.938" level="INFO">${sum} = 11</msg>
+<status status="PASS" starttime="20220613 18:51:24.938" endtime="20220613 18:51:24.938"/>
+</kw>
+<status status="PASS" starttime="20220613 18:51:24.938" endtime="20220613 18:51:24.938"/>
+</iter>
+<iter>
+<var name="${i}">10</var>
+<kw name="Evaluate" library="BuiltIn">
+<var>${sum}</var>
+<arg>${sum} + ${i}</arg>
+<doc>Evaluates the given expression in Python and returns the result.</doc>
+<msg timestamp="20220613 18:51:24.939" level="INFO">${sum} = 21</msg>
+<status status="PASS" starttime="20220613 18:51:24.938" endtime="20220613 18:51:24.939"/>
+</kw>
+<status status="PASS" starttime="20220613 18:51:24.938" endtime="20220613 18:51:24.939"/>
+</iter>
+<status status="PASS" starttime="20220613 18:51:24.934" endtime="20220613 18:51:24.939"/>
+</for>
+<kw name="Should Be Equal As Numbers" library="BuiltIn">
+<arg>${sum}</arg>
+<arg>21</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<msg timestamp="20220613 18:51:24.939" level="INFO">Argument types are:
+&lt;class 'int'&gt;
+&lt;class 'str'&gt;</msg>
+<status status="PASS" starttime="20220613 18:51:24.939" endtime="20220613 18:51:24.939"/>
+</kw>
+<doc>Check that sum of all elements in MYLIST is being found correctly</doc>
 <tag>sum</tag>
-<status status="PASS" starttime="20220611 17:12:28.253" endtime="20220611 17:12:28.259"/>
+<status status="PASS" starttime="20220613 18:51:24.933" endtime="20220613 18:51:24.939"/>
 </test>
 <doc>First task
 
 Using the following list: [1, 2, 3, 5, 1, 0, -1, 10] test finding min, max, unique and sum</doc>
-<status status="PASS" starttime="20220611 17:12:28.228" endtime="20220611 17:12:28.261"/>
+<status status="PASS" starttime="20220613 18:51:24.914" endtime="20220613 18:51:24.940"/>
 </suite>
-<status status="PASS" starttime="20220611 17:12:28.154" endtime="20220611 17:12:28.263"/>
+<status status="PASS" starttime="20220613 18:51:24.790" endtime="20220613 18:51:24.942"/>
 </suite>
 <statistics>
 <total>
-<stat pass="3" fail="0" skip="0">All Tests</stat>
+<stat pass="4" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
+<stat pass="1" fail="0" skip="0">Celsius Fahrenheit</stat>
 <stat pass="1" fail="0" skip="0">max</stat>
 <stat pass="1" fail="0" skip="0">min</stat>
 <stat pass="1" fail="0" skip="0">sum</stat>
 <stat pass="1" fail="0" skip="0">unique</stat>
 </tag>
 <suite>
-<stat pass="3" fail="0" skip="0" id="s1" name="Robot first homework">Robot first homework</stat>
-<stat pass="3" fail="0" skip="0" id="s1-s1" name="Test List Processing">Robot first homework.Test List Processing</stat>
+<stat pass="4" fail="0" skip="0" id="s1" name="Robot first homework">Robot first homework</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Test Celsius To Fahrenheit">Robot first homework.Test Celsius To Fahrenheit</stat>
+<stat pass="3" fail="0" skip="0" id="s1-s2" name="Test List Processing">Robot first homework.Test List Processing</stat>
 </suite>
 </statistics>
 <errors>

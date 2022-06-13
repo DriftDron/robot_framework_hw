@@ -1,24 +1,36 @@
 *** Settings ***
 Documentation           First task\n\n
 ...                     Using the following list: @{MYLIST} test finding min, max, unique and sum
+Library     Collections    WITH NAME    Col
+
 *** Variables ***
-@{MYLIST}               ${1}  ${2}  ${3}  ${5}  ${1}  ${0}  ${-1}  ${10}
+@{MYLIST}                   ${1}  ${2}  ${3}  ${5}  ${1}  ${0}  ${-1}  ${10}
+@{MYLIST_UNIQUE_CHECK}      ${1}  ${2}  ${3}  ${5}  ${0}  ${-1}  ${10}
+
 *** Test Cases ***
-Find min and max in list
-    [Documentation]     Find min and max values in MYLIST
-    [Tags]              max  min
-    ${mylist_min} =     Evaluate    min(@{MYLIST})
-    ${mylist_max} =     Evaluate    max(@{MYLIST})
-    Log                 Max value = ${mylist_max} Min value = ${mylist_min}
-
 Find unique values in list
-    [Documentation]      Find unique values in MYLIST
-    [Tags]               unique
-    ${mylist_unique} =   Evaluate  list(set(@{MYLIST}))
-    Log                  uniqe values in list = ${mylist_unique}
+    [Documentation]         Check that unique values in MYLIST are being found correctly
+    [Tags]                  unique
+    ${mylist_unique} =      Col.Remove duplicates      ${MYLIST}
+    Col.Lists Should Be Equal       ${mylist_unique}    ${MYLIST_UNIQUE_CHECK}
 
-Find sum of all elements in list
-    [Documentation]     Sum of all elements in MYLIST
+Test min value is -1 and max values is 10
+    [Documentation]     Check that min and max values in MYLIST are being found correctly
+    [Tags]              max  min
+    Create Sorted List
+    Should Be Equal As Numbers      ${mylist_sorted}[0]     -1
+    Should Be Equal As Numbers      ${mylist_sorted}[-1]     10
+
+Test sum of all elements in MYLIST is 21
+    [Documentation]     Check that sum of all elements in MYLIST is being found correctly
     [Tags]              sum
-    ${mylist_sum} =     Evaluate  sum(@{MYLIST})
-    Log                 sum of all elements in list = ${mylist_sum}
+    ${sum}              Set Variable    ${0}
+    FOR     ${i}    IN      @{MYLIST}
+        ${sum} =    Evaluate    ${sum} + ${i}
+    END
+    Should Be Equal As Numbers      ${sum}      21
+
+*** Keywords ***
+Create sorted list
+    Set Test Variable   ${mylist_sorted}    ${MYLIST}
+    Col.Sort list       ${mylist_sorted}
