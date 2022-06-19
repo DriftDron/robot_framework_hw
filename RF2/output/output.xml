@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 5.0.1 (Python 3.10.4 on linux)" generated="20220619 19:37:45.381" rpa="false" schemaversion="3">
+<robot generator="Robot 5.0.1 (Python 3.10.4 on linux)" generated="20220620 01:03:29.616" rpa="false" schemaversion="3">
 <suite id="s1" name="RF2" source="/home/andrey/PycharmProjects/Robot_first_homework/RF2">
-<suite id="s1-s1" name="Test Search Many Tables" source="/home/andrey/PycharmProjects/Robot_first_homework/RF2/test_search_many_tables.robot">
-<test id="s1-s1-t1" name="Check search from mulptiple tables" line="15">
+<suite id="s1-s1" name="Test Insertion" source="/home/andrey/PycharmProjects/Robot_first_homework/RF2/test_insertion.robot">
+<test id="s1-s1-t1" name="Check PATCH Request" line="9">
 <kw name="Test Setup" library="resource" type="SETUP">
 <kw name="Create Session" library="Req">
 <arg>alias</arg>
 <arg>http://localhost:3000</arg>
 <doc>Create Session: create a HTTP session to a server</doc>
-<msg timestamp="20220619 19:37:45.820" level="INFO">Creating Session using : alias=alias, url=http://localhost:3000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<msg timestamp="20220619 19:37:45.820" level="DEBUG">Creating session: alias</msg>
-<status status="PASS" starttime="20220619 19:37:45.819" endtime="20220619 19:37:45.820"/>
+<msg timestamp="20220620 01:03:30.101" level="INFO">Creating Session using : alias=alias, url=http://localhost:3000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg timestamp="20220620 01:03:30.101" level="DEBUG">Creating session: alias</msg>
+<status status="PASS" starttime="20220620 01:03:30.101" endtime="20220620 01:03:30.101"/>
 </kw>
 <kw name="Connect To Postgresql" library="DB">
 <arg>hadb</arg>
@@ -19,10 +19,155 @@
 <arg>localhost</arg>
 <arg>8432</arg>
 <doc>Connection to Postgres DB.</doc>
-<msg timestamp="20220619 19:37:45.820" level="DEBUG">Connecting using : dbhost=localhost, dbport=8432, dbname=hadb, dbusername=ha, dbpassword=password2021dljfklkla1!kljf;, alias=None</msg>
-<status status="PASS" starttime="20220619 19:37:45.820" endtime="20220619 19:37:45.826"/>
+<msg timestamp="20220620 01:03:30.102" level="DEBUG">Connecting using : dbhost=localhost, dbport=8432, dbname=hadb, dbusername=ha, dbpassword=password2021dljfklkla1!kljf;, alias=None</msg>
+<status status="PASS" starttime="20220620 01:03:30.101" endtime="20220620 01:03:30.105"/>
 </kw>
-<status status="PASS" starttime="20220619 19:37:45.819" endtime="20220619 19:37:45.826"/>
+<status status="PASS" starttime="20220620 01:03:30.100" endtime="20220620 01:03:30.106"/>
+</kw>
+<kw name="Change Category Names In Categories">
+<arg>test</arg>
+<kw name="Create Dictionary" library="BuiltIn">
+<var>&amp;{data}</var>
+<arg>categoryname=${new_name}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<msg timestamp="20220620 01:03:30.108" level="INFO">&amp;{data} = { categoryname=test }</msg>
+<status status="PASS" starttime="20220620 01:03:30.107" endtime="20220620 01:03:30.108"/>
+</kw>
+<kw name="PATCH On Session" library="Req">
+<var>${resp}</var>
+<arg>alias</arg>
+<arg>categories</arg>
+<arg>${data}</arg>
+<doc>Sends a PATCH request on a previously created HTTP Session.</doc>
+<msg timestamp="20220620 01:03:30.110" level="DEBUG">Starting new HTTP connection (1): localhost:3000</msg>
+<msg timestamp="20220620 01:03:30.307" level="DEBUG">http://localhost:3000 "PATCH /categories HTTP/1.1" 204 0</msg>
+<msg timestamp="20220620 01:03:30.307" level="INFO">PATCH Request : url=http://localhost:3000/categories 
+ path_url=/categories 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '17', 'Content-Type': 'application/x-www-form-urlencoded'} 
+ body=categoryname=test 
+ </msg>
+<msg timestamp="20220620 01:03:30.307" level="INFO">PATCH Response : url=http://localhost:3000/categories 
+ status=204, reason=No Content 
+ headers={'Date': 'Sun, 19 Jun 2022 22:03:30 GMT', 'Server': 'postgrest/9.0.0', 'Content-Range': '0-15/*'} 
+ body=None 
+ </msg>
+<msg timestamp="20220620 01:03:30.308" level="INFO">${resp} = &lt;Response [204]&gt;</msg>
+<status status="PASS" starttime="20220620 01:03:30.108" endtime="20220620 01:03:30.308"/>
+</kw>
+<kw name="Status Should Be" library="Req">
+<arg>204</arg>
+<arg>${resp}</arg>
+<doc>Fails if response status code is different than the expected.</doc>
+<status status="PASS" starttime="20220620 01:03:30.308" endtime="20220620 01:03:30.308"/>
+</kw>
+<status status="PASS" starttime="20220620 01:03:30.106" endtime="20220620 01:03:30.308"/>
+</kw>
+<kw name="Get Categories From PostgRest">
+<var>${res_postgrest}</var>
+<kw name="GET On Session" library="Req">
+<var>${resp}</var>
+<arg>alias</arg>
+<arg>categories</arg>
+<doc>Sends a GET request on a previously created HTTP Session.</doc>
+<msg timestamp="20220620 01:03:30.314" level="DEBUG">http://localhost:3000 "GET /categories HTTP/1.1" 200 None</msg>
+<msg timestamp="20220620 01:03:30.314" level="INFO">GET Request : url=http://localhost:3000/categories 
+ path_url=/categories 
+ headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
+ body=None 
+ </msg>
+<msg timestamp="20220620 01:03:30.315" level="INFO">GET Response : url=http://localhost:3000/categories 
+ status=200, reason=OK 
+ headers={'Transfer-Encoding': 'chunked', 'Date': 'Sun, 19 Jun 2022 22:03:30 GMT', 'Server': 'postgrest/9.0.0', 'Content-Range': '0-15/*', 'Content-Location': '/categories', 'Content-Type': 'application/json; charset=utf-8'} 
+ body=[{"category":1,"categoryname":"test"}, 
+ {"category":2,"categoryname":"test"}, 
+ {"category":3,"categoryname":"test"}, 
+ {"category":4,"categoryname":"test"}, 
+ {"category":5,"categoryname":"test"}, 
+ {"category":6,"categoryname":"test"}, 
+ {"category":7,"categoryname":"test"}, 
+ {"category":8,"categoryname":"test"}, 
+ {"category":9,"categoryname":"test"}, 
+ {"category":10,"categoryname":"test"}, 
+ {"category":11,"categoryname":"test"}, 
+ {"category":12,"categoryname":"test"}, 
+ {"category":13,"categoryname":"test"}, 
+ {"category":14,"categoryname":"test"}, 
+ {"category":15,"categoryname":"test"}, 
+ {"category":16,"categoryname":"test"}] 
+ </msg>
+<msg timestamp="20220620 01:03:30.315" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220620 01:03:30.309" endtime="20220620 01:03:30.315"/>
+</kw>
+<kw name="Set Variable" library="BuiltIn">
+<var>${res_postgrest}</var>
+<arg>${resp.json()}</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<msg timestamp="20220620 01:03:30.318" level="INFO">${res_postgrest} = [{'category': 1, 'categoryname': 'test'}, {'category': 2, 'categoryname': 'test'}, {'category': 3, 'categoryname': 'test'}, {'category': 4, 'categoryname': 'test'}, {'category': 5, 'categoryname': 'te...</msg>
+<status status="PASS" starttime="20220620 01:03:30.315" endtime="20220620 01:03:30.318"/>
+</kw>
+<msg timestamp="20220620 01:03:30.318" level="INFO">${res_postgrest} = [{'category': 1, 'categoryname': 'test'}, {'category': 2, 'categoryname': 'test'}, {'category': 3, 'categoryname': 'test'}, {'category': 4, 'categoryname': 'test'}, {'category': 5, 'categoryname': 'te...</msg>
+<status status="PASS" starttime="20220620 01:03:30.308" endtime="20220620 01:03:30.318"/>
+</kw>
+<kw name="Execute Sql String Mapped" library="DB">
+<var>${res_db}</var>
+<arg>${SQL}</arg>
+<doc>SQL query execution where each result row is mapped as a dict with column names as keys.</doc>
+<msg timestamp="20220620 01:03:30.321" level="INFO" html="true">&lt;details&gt;&lt;summary&gt;Running PL/PGSQL statement&lt;/summary&gt;&lt;p&gt;SELECT * FROM bootcamp.categories&lt;/p&gt;&lt;/details&gt;</msg>
+<msg timestamp="20220620 01:03:30.322" level="INFO" html="true">&lt;details&gt;&lt;summary&gt;SQL Query Result&lt;/summary&gt;&lt;p&gt;[{&amp;#x27;category&amp;#x27;: 1, &amp;#x27;categoryname&amp;#x27;: &amp;#x27;test&amp;#x27;}, {&amp;#x27;category&amp;#x27;: 2, &amp;#x27;categoryname&amp;#x27;: &amp;#x27;test&amp;#x27;}, {&amp;#x27;category&amp;#x27;: 3, &amp;#x27;categoryname&amp;#x27;: &amp;#x27;test&amp;#x27;}, {&amp;#x27;category&amp;#x27;: 4, &amp;#x27;categoryname&amp;#x27;: &amp;#x27;test&amp;#x27;}, {&amp;#x27;category&amp;#x27;: 5, &amp;#x27;categoryname&amp;#x27;: &amp;#x27;test&amp;#x27;}, {&amp;#x27;category&amp;#x27;: 6, &amp;#x27;categoryname&amp;#x27;: &amp;#x27;test&amp;#x27;}, {&amp;#x27;category&amp;#x27;: 7, &amp;#x27;categoryname&amp;#x27;: &amp;#x27;test&amp;#x27;}, {&amp;#x27;category&amp;#x27;: 8, &amp;#x27;categoryname&amp;#x27;: &amp;#x27;test&amp;#x27;}, {&amp;#x27;category&amp;#x27;: 9, &amp;#x27;categoryname&amp;#x27;: &amp;#x27;test&amp;#x27;}, {&amp;#x27;category&amp;#x27;: 10, &amp;#x27;categoryname&amp;#x27;: &amp;#x27;test&amp;#x27;}]&lt;/p&gt;&lt;/details&gt;</msg>
+<msg timestamp="20220620 01:03:30.322" level="INFO">${res_db} = [{'category': 1, 'categoryname': 'test'}, {'category': 2, 'categoryname': 'test'}, {'category': 3, 'categoryname': 'test'}, {'category': 4, 'categoryname': 'test'}, {'category': 5, 'categoryname': 'te...</msg>
+<status status="PASS" starttime="20220620 01:03:30.321" endtime="20220620 01:03:30.322"/>
+</kw>
+<kw name="Should Be Equal As Strings" library="BuiltIn">
+<arg>${res_db}</arg>
+<arg>${res_postgrest}</arg>
+<doc>Fails if objects are unequal after converting them to strings.</doc>
+<msg timestamp="20220620 01:03:30.323" level="DEBUG">Argument types are:
+&lt;class 'list'&gt;
+&lt;class 'list'&gt;</msg>
+<status status="PASS" starttime="20220620 01:03:30.323" endtime="20220620 01:03:30.323"/>
+</kw>
+<kw name="Test Teardown" library="resource" type="TEARDOWN">
+<kw name="Delete All Sessions" library="Req">
+<doc>Removes all the session objects</doc>
+<msg timestamp="20220620 01:03:30.324" level="INFO">Deleting All Sessions</msg>
+<status status="PASS" starttime="20220620 01:03:30.324" endtime="20220620 01:03:30.324"/>
+</kw>
+<kw name="Disconnect From Postgresql" library="DB">
+<doc>Close active PostgreSQL connection.
+You will have to manually open or switch to a new connection.
+Due to how ConnectionCache works, connection's index and alias are not removed from cache, so you are able to switch to
+closed connection, if it was closed with Disconnect from Postgresql. It will still remain closed though.</doc>
+<status status="PASS" starttime="20220620 01:03:30.324" endtime="20220620 01:03:30.326"/>
+</kw>
+<status status="PASS" starttime="20220620 01:03:30.323" endtime="20220620 01:03:30.326"/>
+</kw>
+<status status="PASS" starttime="20220620 01:03:30.099" endtime="20220620 01:03:30.327"/>
+</test>
+<meta name="Автор">Андрей Кан</meta>
+<status status="PASS" starttime="20220620 01:03:29.669" endtime="20220620 01:03:30.327"/>
+</suite>
+<suite id="s1-s2" name="Test Search Many Tables" source="/home/andrey/PycharmProjects/Robot_first_homework/RF2/test_search_many_tables.robot">
+<test id="s1-s2-t1" name="Check search from mulptiple tables" line="17">
+<kw name="Test Setup" library="resource" type="SETUP">
+<kw name="Create Session" library="Req">
+<arg>alias</arg>
+<arg>http://localhost:3000</arg>
+<doc>Create Session: create a HTTP session to a server</doc>
+<msg timestamp="20220620 01:03:30.344" level="INFO">Creating Session using : alias=alias, url=http://localhost:3000, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
+<msg timestamp="20220620 01:03:30.344" level="DEBUG">Creating session: alias</msg>
+<status status="PASS" starttime="20220620 01:03:30.344" endtime="20220620 01:03:30.344"/>
+</kw>
+<kw name="Connect To Postgresql" library="DB">
+<arg>hadb</arg>
+<arg>ha</arg>
+<arg>password2021dljfklkla1!kljf;</arg>
+<arg>localhost</arg>
+<arg>8432</arg>
+<doc>Connection to Postgres DB.</doc>
+<msg timestamp="20220620 01:03:30.345" level="DEBUG">Connecting using : dbhost=localhost, dbport=8432, dbname=hadb, dbusername=ha, dbpassword=password2021dljfklkla1!kljf;, alias=None</msg>
+<status status="PASS" starttime="20220620 01:03:30.344" endtime="20220620 01:03:30.352"/>
+</kw>
+<status status="PASS" starttime="20220620 01:03:30.343" endtime="20220620 01:03:30.352"/>
 </kw>
 <kw name="Get Firstname From PostRest">
 <var>${firstname}</var>
@@ -33,35 +178,35 @@
 <arg>customers</arg>
 <arg>params=${filter}</arg>
 <doc>Sends a GET request on a previously created HTTP Session.</doc>
-<msg timestamp="20220619 19:37:45.839" level="DEBUG">Starting new HTTP connection (1): localhost:3000</msg>
-<msg timestamp="20220619 19:37:45.889" level="DEBUG">http://localhost:3000 "GET /customers?age=lt.21&amp;select=age,firstname,products!inner(title)&amp;products.title=like.%25FISH%25 HTTP/1.1" 200 None</msg>
-<msg timestamp="20220619 19:37:45.890" level="INFO">GET Request : url=http://localhost:3000/customers?age=lt.21&amp;select=age,firstname,products!inner(title)&amp;products.title=like.%25FISH%25 
+<msg timestamp="20220620 01:03:30.356" level="DEBUG">Starting new HTTP connection (1): localhost:3000</msg>
+<msg timestamp="20220620 01:03:30.389" level="DEBUG">http://localhost:3000 "GET /customers?age=lt.21&amp;select=age,firstname,products!inner(title)&amp;products.title=like.%25FISH%25 HTTP/1.1" 200 None</msg>
+<msg timestamp="20220620 01:03:30.390" level="INFO">GET Request : url=http://localhost:3000/customers?age=lt.21&amp;select=age,firstname,products!inner(title)&amp;products.title=like.%25FISH%25 
  path_url=/customers?age=lt.21&amp;select=age,firstname,products!inner(title)&amp;products.title=like.%25FISH%25 
  headers={'User-Agent': 'python-requests/2.28.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive'} 
  body=None 
  </msg>
-<msg timestamp="20220619 19:37:45.890" level="INFO">GET Response : url=http://localhost:3000/customers?age=lt.21&amp;select=age,firstname,products!inner(title)&amp;products.title=like.%25FISH%25 
+<msg timestamp="20220620 01:03:30.390" level="INFO">GET Response : url=http://localhost:3000/customers?age=lt.21&amp;select=age,firstname,products!inner(title)&amp;products.title=like.%25FISH%25 
  status=200, reason=OK 
- headers={'Transfer-Encoding': 'chunked', 'Date': 'Sun, 19 Jun 2022 16:37:45 GMT', 'Server': 'postgrest/9.0.0', 'Content-Range': '0-4/*', 'Content-Location': '/customers?age=lt.21&amp;products.title=like.%25FISH%25&amp;select=age%2Cfirstname%2Cproducts%21inner%28title%29', 'Content-Type': 'application/json; charset=utf-8'} 
+ headers={'Transfer-Encoding': 'chunked', 'Date': 'Sun, 19 Jun 2022 22:03:30 GMT', 'Server': 'postgrest/9.0.0', 'Content-Range': '0-4/*', 'Content-Location': '/customers?age=lt.21&amp;products.title=like.%25FISH%25&amp;select=age%2Cfirstname%2Cproducts%21inner%28title%29', 'Content-Type': 'application/json; charset=utf-8'} 
  body=[{"age":20,"firstname":"LGYCHT","products":[{"title":"AFFAIR FISH"}]}, 
  {"age":20,"firstname":"GCDLEP","products":[{"title":"AGENT FISH"}]}, 
  {"age":18,"firstname":"TMTSLG","products":[{"title":"ACE FISH"}]}, 
  {"age":18,"firstname":"MPBIQS","products":[{"title":"ADAPTATION FISH"}]}, 
  {"age":19,"firstname":"NTCKLG","products":[{"title":"ALADDIN FISH"}]}] 
  </msg>
-<msg timestamp="20220619 19:37:45.890" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
-<status status="PASS" starttime="20220619 19:37:45.827" endtime="20220619 19:37:45.890"/>
+<msg timestamp="20220620 01:03:30.390" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
+<status status="PASS" starttime="20220620 01:03:30.353" endtime="20220620 01:03:30.390"/>
 </kw>
 <kw name="Get Elements" library="Js">
 <var>${firstname}</var>
 <arg>${resp.json()}</arg>
 <arg>$..firstname</arg>
 <doc>Get list of elements from _json_source_, matching [http://goessner.net/articles/JsonPath/|JSONPath] expression.</doc>
-<msg timestamp="20220619 19:37:46.030" level="INFO">${firstname} = ['LGYCHT', 'GCDLEP', 'TMTSLG', 'MPBIQS', 'NTCKLG']</msg>
-<status status="PASS" starttime="20220619 19:37:45.891" endtime="20220619 19:37:46.030"/>
+<msg timestamp="20220620 01:03:30.468" level="INFO">${firstname} = ['LGYCHT', 'GCDLEP', 'TMTSLG', 'MPBIQS', 'NTCKLG']</msg>
+<status status="PASS" starttime="20220620 01:03:30.390" endtime="20220620 01:03:30.468"/>
 </kw>
-<msg timestamp="20220619 19:37:46.032" level="INFO">${firstname} = ['LGYCHT', 'GCDLEP', 'TMTSLG', 'MPBIQS', 'NTCKLG']</msg>
-<status status="PASS" starttime="20220619 19:37:45.826" endtime="20220619 19:37:46.032"/>
+<msg timestamp="20220620 01:03:30.469" level="INFO">${firstname} = ['LGYCHT', 'GCDLEP', 'TMTSLG', 'MPBIQS', 'NTCKLG']</msg>
+<status status="PASS" starttime="20220620 01:03:30.352" endtime="20220620 01:03:30.469"/>
 </kw>
 <kw name="Get Firstname From DB">
 <var>@{result}</var>
@@ -70,21 +215,21 @@
 <var>${params}</var>
 <arg>&amp;{dict_params}</arg>
 <doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<msg timestamp="20220619 19:37:46.034" level="INFO">${params} = {'age': '21', 'title': '%FISH%'}</msg>
-<status status="PASS" starttime="20220619 19:37:46.032" endtime="20220619 19:37:46.034"/>
+<msg timestamp="20220620 01:03:30.470" level="INFO">${params} = {'age': '21', 'title': '%FISH%'}</msg>
+<status status="PASS" starttime="20220620 01:03:30.469" endtime="20220620 01:03:30.470"/>
 </kw>
 <kw name="Execute Sql String Mapped" library="DB">
 <var>@{result}</var>
 <arg>${SQL}</arg>
 <arg>&amp;{params}</arg>
 <doc>SQL query execution where each result row is mapped as a dict with column names as keys.</doc>
-<msg timestamp="20220619 19:37:46.034" level="INFO" html="true">&lt;details&gt;&lt;summary&gt;Running PL/PGSQL statement&lt;/summary&gt;&lt;p&gt;SELECT age, firstname, title FROM bootcamp.customers JOIN bootcamp.cust_hist USING(customerid) JOIN bootcamp.products USING(prod_id) WHERE age&amp;lt;%(age)s AND title LIKE %(title)s&lt;/p&gt;&lt;/details&gt;</msg>
-<msg timestamp="20220619 19:37:46.068" level="INFO" html="true">&lt;details&gt;&lt;summary&gt;SQL Query Result&lt;/summary&gt;&lt;p&gt;[{&amp;#x27;age&amp;#x27;: 18, &amp;#x27;firstname&amp;#x27;: &amp;#x27;TMTSLG&amp;#x27;, &amp;#x27;title&amp;#x27;: &amp;#x27;ACE FISH&amp;#x27;}, {&amp;#x27;age&amp;#x27;: 20, &amp;#x27;firstname&amp;#x27;: &amp;#x27;LGYCHT&amp;#x27;, &amp;#x27;title&amp;#x27;: &amp;#x27;AFFAIR FISH&amp;#x27;}, {&amp;#x27;age&amp;#x27;: 20, &amp;#x27;firstname&amp;#x27;: &amp;#x27;GCDLEP&amp;#x27;, &amp;#x27;title&amp;#x27;: &amp;#x27;AGENT FISH&amp;#x27;}, {&amp;#x27;age&amp;#x27;: 19, &amp;#x27;firstname&amp;#x27;: &amp;#x27;NTCKLG&amp;#x27;, &amp;#x27;title&amp;#x27;: &amp;#x27;ALADDIN FISH&amp;#x27;}, {&amp;#x27;age&amp;#x27;: 18, &amp;#x27;firstname&amp;#x27;: &amp;#x27;MPBIQS&amp;#x27;, &amp;#x27;title&amp;#x27;: &amp;#x27;ADAPTATION FISH&amp;#x27;}]&lt;/p&gt;&lt;/details&gt;</msg>
-<msg timestamp="20220619 19:37:46.069" level="INFO">@{result} = [ {'age': 18, 'firstname': 'TMTSLG', 'title': 'ACE FISH'} | {'age': 20, 'firstname': 'LGYCHT', 'title': 'AFFAIR FISH'} | {'age': 20, 'firstname': 'GCDLEP', 'title': 'AGENT FISH'} | {'age': 19, 'firstn...</msg>
-<status status="PASS" starttime="20220619 19:37:46.034" endtime="20220619 19:37:46.069"/>
+<msg timestamp="20220620 01:03:30.471" level="INFO" html="true">&lt;details&gt;&lt;summary&gt;Running PL/PGSQL statement&lt;/summary&gt;&lt;p&gt;SELECT age, firstname, title FROM bootcamp.customers JOIN bootcamp.cust_hist USING(customerid) JOIN bootcamp.products USING(prod_id) WHERE age&amp;lt;%(age)s AND title LIKE %(title)s&lt;/p&gt;&lt;/details&gt;</msg>
+<msg timestamp="20220620 01:03:30.496" level="INFO" html="true">&lt;details&gt;&lt;summary&gt;SQL Query Result&lt;/summary&gt;&lt;p&gt;[{&amp;#x27;age&amp;#x27;: 18, &amp;#x27;firstname&amp;#x27;: &amp;#x27;TMTSLG&amp;#x27;, &amp;#x27;title&amp;#x27;: &amp;#x27;ACE FISH&amp;#x27;}, {&amp;#x27;age&amp;#x27;: 20, &amp;#x27;firstname&amp;#x27;: &amp;#x27;LGYCHT&amp;#x27;, &amp;#x27;title&amp;#x27;: &amp;#x27;AFFAIR FISH&amp;#x27;}, {&amp;#x27;age&amp;#x27;: 20, &amp;#x27;firstname&amp;#x27;: &amp;#x27;GCDLEP&amp;#x27;, &amp;#x27;title&amp;#x27;: &amp;#x27;AGENT FISH&amp;#x27;}, {&amp;#x27;age&amp;#x27;: 19, &amp;#x27;firstname&amp;#x27;: &amp;#x27;NTCKLG&amp;#x27;, &amp;#x27;title&amp;#x27;: &amp;#x27;ALADDIN FISH&amp;#x27;}, {&amp;#x27;age&amp;#x27;: 18, &amp;#x27;firstname&amp;#x27;: &amp;#x27;MPBIQS&amp;#x27;, &amp;#x27;title&amp;#x27;: &amp;#x27;ADAPTATION FISH&amp;#x27;}]&lt;/p&gt;&lt;/details&gt;</msg>
+<msg timestamp="20220620 01:03:30.496" level="INFO">@{result} = [ {'age': 18, 'firstname': 'TMTSLG', 'title': 'ACE FISH'} | {'age': 20, 'firstname': 'LGYCHT', 'title': 'AFFAIR FISH'} | {'age': 20, 'firstname': 'GCDLEP', 'title': 'AGENT FISH'} | {'age': 19, 'firstn...</msg>
+<status status="PASS" starttime="20220620 01:03:30.470" endtime="20220620 01:03:30.496"/>
 </kw>
-<msg timestamp="20220619 19:37:46.069" level="INFO">@{result} = [ {'age': 18, 'firstname': 'TMTSLG', 'title': 'ACE FISH'} | {'age': 20, 'firstname': 'LGYCHT', 'title': 'AFFAIR FISH'} | {'age': 20, 'firstname': 'GCDLEP', 'title': 'AGENT FISH'} | {'age': 19, 'firstn...</msg>
-<status status="PASS" starttime="20220619 19:37:46.032" endtime="20220619 19:37:46.069"/>
+<msg timestamp="20220620 01:03:30.497" level="INFO">@{result} = [ {'age': 18, 'firstname': 'TMTSLG', 'title': 'ACE FISH'} | {'age': 20, 'firstname': 'LGYCHT', 'title': 'AFFAIR FISH'} | {'age': 20, 'firstname': 'GCDLEP', 'title': 'AGENT FISH'} | {'age': 19, 'firstn...</msg>
+<status status="PASS" starttime="20220620 01:03:30.469" endtime="20220620 01:03:30.497"/>
 </kw>
 <kw name="Compare Result">
 <arg>${result}</arg>
@@ -92,8 +237,8 @@
 <kw name="Create List" library="BuiltIn">
 <var>${firstnames_db}</var>
 <doc>Returns a list containing given items.</doc>
-<msg timestamp="20220619 19:37:46.070" level="INFO">${firstnames_db} = []</msg>
-<status status="PASS" starttime="20220619 19:37:46.070" endtime="20220619 19:37:46.070"/>
+<msg timestamp="20220620 01:03:30.498" level="INFO">${firstnames_db} = []</msg>
+<status status="PASS" starttime="20220620 01:03:30.498" endtime="20220620 01:03:30.498"/>
 </kw>
 <for flavor="IN">
 <var>${i}</var>
@@ -104,9 +249,9 @@
 <arg>${firstnames_db}</arg>
 <arg>${i}[firstname]</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20220619 19:37:46.071" endtime="20220619 19:37:46.071"/>
+<status status="PASS" starttime="20220620 01:03:30.499" endtime="20220620 01:03:30.499"/>
 </kw>
-<status status="PASS" starttime="20220619 19:37:46.071" endtime="20220619 19:37:46.071"/>
+<status status="PASS" starttime="20220620 01:03:30.499" endtime="20220620 01:03:30.499"/>
 </iter>
 <iter>
 <var name="${i}">{'age': 20, 'firstname': 'LGYCHT', 'title': 'AFFAIR FISH'}</var>
@@ -114,9 +259,9 @@
 <arg>${firstnames_db}</arg>
 <arg>${i}[firstname]</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20220619 19:37:46.071" endtime="20220619 19:37:46.072"/>
+<status status="PASS" starttime="20220620 01:03:30.500" endtime="20220620 01:03:30.500"/>
 </kw>
-<status status="PASS" starttime="20220619 19:37:46.071" endtime="20220619 19:37:46.072"/>
+<status status="PASS" starttime="20220620 01:03:30.500" endtime="20220620 01:03:30.500"/>
 </iter>
 <iter>
 <var name="${i}">{'age': 20, 'firstname': 'GCDLEP', 'title': 'AGENT FISH'}</var>
@@ -124,9 +269,9 @@
 <arg>${firstnames_db}</arg>
 <arg>${i}[firstname]</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20220619 19:37:46.073" endtime="20220619 19:37:46.073"/>
+<status status="PASS" starttime="20220620 01:03:30.501" endtime="20220620 01:03:30.501"/>
 </kw>
-<status status="PASS" starttime="20220619 19:37:46.072" endtime="20220619 19:37:46.073"/>
+<status status="PASS" starttime="20220620 01:03:30.500" endtime="20220620 01:03:30.501"/>
 </iter>
 <iter>
 <var name="${i}">{'age': 19, 'firstname': 'NTCKLG', 'title': 'ALADDIN FISH'}</var>
@@ -134,9 +279,9 @@
 <arg>${firstnames_db}</arg>
 <arg>${i}[firstname]</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20220619 19:37:46.074" endtime="20220619 19:37:46.075"/>
+<status status="PASS" starttime="20220620 01:03:30.501" endtime="20220620 01:03:30.502"/>
 </kw>
-<status status="PASS" starttime="20220619 19:37:46.074" endtime="20220619 19:37:46.075"/>
+<status status="PASS" starttime="20220620 01:03:30.501" endtime="20220620 01:03:30.502"/>
 </iter>
 <iter>
 <var name="${i}">{'age': 18, 'firstname': 'MPBIQS', 'title': 'ADAPTATION FISH'}</var>
@@ -144,53 +289,54 @@
 <arg>${firstnames_db}</arg>
 <arg>${i}[firstname]</arg>
 <doc>Adds ``values`` to the end of ``list``.</doc>
-<status status="PASS" starttime="20220619 19:37:46.075" endtime="20220619 19:37:46.075"/>
+<status status="PASS" starttime="20220620 01:03:30.502" endtime="20220620 01:03:30.503"/>
 </kw>
-<status status="PASS" starttime="20220619 19:37:46.075" endtime="20220619 19:37:46.075"/>
+<status status="PASS" starttime="20220620 01:03:30.502" endtime="20220620 01:03:30.503"/>
 </iter>
-<status status="PASS" starttime="20220619 19:37:46.070" endtime="20220619 19:37:46.075"/>
+<status status="PASS" starttime="20220620 01:03:30.499" endtime="20220620 01:03:30.503"/>
 </for>
 <kw name="Lists Should Be Equal" library="Col">
 <arg>${firstnames_db}</arg>
 <arg>${firstnames}</arg>
 <arg>ignore_order=True</arg>
 <doc>Fails if given lists are unequal.</doc>
-<status status="PASS" starttime="20220619 19:37:46.076" endtime="20220619 19:37:46.077"/>
+<status status="PASS" starttime="20220620 01:03:30.503" endtime="20220620 01:03:30.504"/>
 </kw>
-<status status="PASS" starttime="20220619 19:37:46.069" endtime="20220619 19:37:46.078"/>
+<status status="PASS" starttime="20220620 01:03:30.497" endtime="20220620 01:03:30.504"/>
 </kw>
 <kw name="Test Teardown" library="resource" type="TEARDOWN">
 <kw name="Delete All Sessions" library="Req">
 <doc>Removes all the session objects</doc>
-<msg timestamp="20220619 19:37:46.081" level="INFO">Deleting All Sessions</msg>
-<status status="PASS" starttime="20220619 19:37:46.081" endtime="20220619 19:37:46.081"/>
+<msg timestamp="20220620 01:03:30.505" level="INFO">Deleting All Sessions</msg>
+<status status="PASS" starttime="20220620 01:03:30.505" endtime="20220620 01:03:30.505"/>
 </kw>
 <kw name="Disconnect From Postgresql" library="DB">
 <doc>Close active PostgreSQL connection.
 You will have to manually open or switch to a new connection.
 Due to how ConnectionCache works, connection's index and alias are not removed from cache, so you are able to switch to
 closed connection, if it was closed with Disconnect from Postgresql. It will still remain closed though.</doc>
-<status status="PASS" starttime="20220619 19:37:46.081" endtime="20220619 19:37:46.084"/>
+<status status="PASS" starttime="20220620 01:03:30.505" endtime="20220620 01:03:30.508"/>
 </kw>
-<status status="PASS" starttime="20220619 19:37:46.078" endtime="20220619 19:37:46.085"/>
+<status status="PASS" starttime="20220620 01:03:30.504" endtime="20220620 01:03:30.509"/>
 </kw>
 <doc>Проверка поиска данных из нескольких таблиц</doc>
-<status status="PASS" starttime="20220619 19:37:45.813" endtime="20220619 19:37:46.085"/>
+<status status="PASS" starttime="20220620 01:03:30.343" endtime="20220620 01:03:30.509"/>
 </test>
 <meta name="Автор">Андрей Кан</meta>
-<status status="PASS" starttime="20220619 19:37:45.492" endtime="20220619 19:37:46.086"/>
+<status status="PASS" starttime="20220620 01:03:30.328" endtime="20220620 01:03:30.509"/>
 </suite>
-<status status="PASS" starttime="20220619 19:37:45.383" endtime="20220619 19:37:46.090"/>
+<status status="PASS" starttime="20220620 01:03:29.619" endtime="20220620 01:03:30.511"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="2" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="RF2">RF2</stat>
-<stat pass="1" fail="0" skip="0" id="s1-s1" name="Test Search Many Tables">RF2.Test Search Many Tables</stat>
+<stat pass="2" fail="0" skip="0" id="s1" name="RF2">RF2</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Test Insertion">RF2.Test Insertion</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s2" name="Test Search Many Tables">RF2.Test Search Many Tables</stat>
 </suite>
 </statistics>
 <errors>
