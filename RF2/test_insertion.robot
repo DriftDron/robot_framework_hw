@@ -10,7 +10,7 @@ Check PATCH Request
     [Documentation]    Проверка изменения поля categoryname в таблице bootcamp.categories
     Change Category Names In Categories   test
     ${res_postgrest}    Get Categories From PostgRest
-    ${res_db}           Execute Sql String Mapped    ${SQL}
+    ${res_db}           DB.Execute Sql String Mapped    ${SQL}
     Should Be Equal As Strings    ${res_db}    ${res_postgrest}
 
 *** Keywords ***
