@@ -11,7 +11,7 @@ Check PATCH Request
     Change Category Names In Categories   test
     ${res_postgrest}    Get Categories From PostgRest
     ${res_db}           DB.Execute Sql String Mapped    ${SQL}
-    Should Be Equal As Strings    ${res_db}    ${res_postgrest}
+    Col.Lists Should Be Equal    ${res_db}    ${res_postgrest}
 
 *** Keywords ***
 Change Category Names In Categories
