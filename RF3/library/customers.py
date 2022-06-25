@@ -1,6 +1,7 @@
 from robot.libraries.BuiltIn import BuiltIn
 from JsonValidator import JsonValidator
 
+
 class Customers:
     builtin_lib = BuiltIn()
     js = JsonValidator()
@@ -16,7 +17,8 @@ class Customers:
                                                       params=params, expected_status=expected_status)
         return resp.json()
 
-    def get_firstnames_from_rest(self, alias, params):
+    def get_firstnames_from_rest(self, alias='alias'):
+        params = 'age=lt.21&select=age,firstname,products!inner(title)&products.title=like.%FISH%'
         result = self.get_data_from_rest(alias=alias, params=params)
         firstnames = self.js.get_elements(result, '$..firstname')
         return firstnames
@@ -30,7 +32,8 @@ class Customers:
         result = self.get_postgres_lib().execute_sql_string_mapped(sql, **params)
         return result
 
-    def get_firstnames_from_db(self, params):
+    def get_firstnames_from_db(self):
+        params = {'age': '21', 'title': '%FISH%'}
         data_from_db = self.get_data_from_db(params)
         firstnames_db = []
         for i in data_from_db:

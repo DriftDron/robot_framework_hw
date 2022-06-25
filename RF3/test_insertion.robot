@@ -1,7 +1,7 @@
 *** Settings ***
 Test Setup      Test Setup
 Test Teardown   Test Teardown
-Test Timeout    1s
+Test Timeout    2s
 Metadata        Автор   Андрей Кан
 Resource        resource.robot
 *** Test Cases ***
