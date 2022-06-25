@@ -17,7 +17,7 @@ class Categories:
                                                           data=data, expected_status=expected_status)
         self.get_requests_lib().status_should_be(expected_status=expected_status, response=result)
 
-    def get_categories_from_rest(self, alias):
+    def get_categories_from_rest(self, alias='alias'):
         result = self.get_requests_lib().get_on_session(alias=alias, url='categories')
         return result.json()
 
